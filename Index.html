@@ -1,7 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    :root {
+      --cor-fundo: #0e1538;
+      --cor-aviso: #d400d4;
+      --cor-texto: #ffffff;
+      --cor-link: #00ccff;
+    }
+
+    body {
+      background-color: var(--cor-fundo);
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      color: var(--cor-texto);
+      text-align: center;
+      font-size: 36px;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: var(--cor-texto);
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 50px;
+    }
+
+    .aviso {
+      background-color: var(--cor-aviso);
+      color: var(--cor-texto);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 20px;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .aviso.mostrar {
+      opacity: 1;
+    }
+
+    .jogo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .jogo img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .jogo h2 {
+      color: var(--cor-texto);
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .jogo button {
+      background-color: var(--cor-link);
+      color: var(--cor-texto);
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .jogo button:hover {
+      background-color: var(--cor-aviso);
+    }
+  </style>
+  <script>
+    function mostrarAviso() {
+      var aviso = document.querySelector(".aviso");
+      aviso.classList.add("mostrar");
+      setTimeout(function() {
+        aviso.classList.remove("mostrar");
+      }, 4000);
+    }
+
+    function abrirJogo(id) {
+      var jogoLink = document.querySelector("#jogo-link-" + id);
+      window.open(jogoLink.href, "_blank");
+    }
+
+    window.onload = mostrarAviso;
+  </script>
 </head>
 <body>
   <h1>evo games</h1>
@@ -27,10 +123,4 @@
   </div>
   <div class="jogo">
     <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fjp.konami.pesam%2Ficon%2Fefootball-2024.png&w=256&q=80" alt="eFootball™ 2024 icon">
-    <h2>eFootball™ 2024</h2>
-    <a id="jogo-link-4" href="https://nowgg.nl/apps/konami/2641/efootball-2024.html" target="_blank" hidden></a>
-    <button onclick="abrirJogo(4)">Jogue</button>
-  </div>
-  <script src="scripts.js"></script>
-</body>
-      </html>
+    <h2>eFootball™
