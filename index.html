@@ -1,131 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <style>
-    :root {
-      --cor-fundo: #0e1538;
-      --cor-aviso: #d400d4;
-      --cor-texto: #ffffff;
-      --cor-link: #00ccff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evo Games</title>
 
-    body {
-      background-color: var(--cor-fundo);
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
+    <style>
+        body {
+            background-color: #0e1538;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #FFFFFF;
+        }
 
-    h1 {
-      color: var(--cor-texto);
-      text-align: center;
-      font-size: 36px;
-      margin-top: 50px;
-      margin-bottom: 20px;
-    }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #1a1a1a; /* Dark Gray */
+            color: #fff; /* White text for contrast */
+        }
 
-    p {
-      color: var(--cor-texto);
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 50px;
-    }
+        h1 {
+            font-size: 40px;
+            margin: 10px 0;
+            color: #035780; /* Yellow */
+        }
 
-    .aviso {
-      background-color: var(--cor-aviso);
-      color: var(--cor-texto);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 50px;
-      text-align: center;
-      line-height: 50px;
-      font-size: 20px;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
+        .notification {
+            background-color: #ff6600; /* Orange */
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
 
-    .aviso.mostrar {
-      opacity: 1;
-    }
+        .notification button {
+            background-color: #035780; /* Dark Yellow */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-    .jogo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+        .notification button:hover {
+            background-color: #d400d4; /* Purple */
+        }
 
-    .jogo img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
+        .notification.mostrar {
+            opacity: 1;
+        }
 
-    .jogo h2 {
-      color: var(--cor-texto);
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+        .evogames {
+            background-color: #2c2c2c; /* Slightly lighter Dark Gray */
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
 
-    .jogo button {
-      background-color: var(--cor-link);
-      color: var(--cor-texto);
-      border: none;
-      padding: 10px 20px;
-      font-size: 18px;
-      cursor: pointer;
-    }
+        .jogo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 20px;
+            padding: 20px;
+        }
 
-    .jogo button:hover {
-      background-color: var(--cor-aviso);
-    }
-  </style>
-  <script>
-    function mostrarAviso() {
-      var aviso = document.querySelector(".aviso");
-      aviso.classList.add("mostrar");
-      setTimeout(function() {
-        aviso.classList.remove("mostrar");
-      }, 4000);
-    }
+        .jogo {
+            background-color: #333; /* Dark Gray */
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
 
-    function abrirJogo(id) {
-      var jogoLink = document.querySelector("#jogo-link-" + id);
-      window.open(jogoLink.href, "_blank");
-    }
+        .jogo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance hover effect */
+        }
 
-    window.onload = mostrarAviso;
-  </script>
+        .jogo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .jogo h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .jogo button {
+            background-color: #035780; /* Dark Yellow */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .jogo button:hover {
+            background-color: #d400d4; /* Purple */
+        }
+
+        p {
+            color: #fff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .copyright {
+            color: #fff;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+
+    <script>
+        function mostrarAviso() {
+            var aviso = document.querySelector(".notification");
+            aviso.classList.add("mostrar");
+        }
+
+        function fecharAviso() {
+            var aviso = document.querySelector(".notification");
+            aviso.classList.remove("mostrar");
+        }
+
+        function abrirJogo(id) {
+            var jogoLink = document.querySelector("#jogo-link-" + id);
+            window.open(jogoLink.href, "_blank");
+        }
+
+        window.onload = mostrarAviso;
+    </script>
+
 </head>
+
 <body>
-  <h1>evo games</h1>
-  <p>nowgg, pra jogar é obrigatório uso de vpn</p>
-  <div class="aviso">Precisa de vpn!</div>
-  <div class="jogo">
-    <img src="https://cdn.now.gg/apps-content/com.uncube.launcher3/icon/now.png" alt="nowgg icon">
-    <h2>app launcher</h2>
-    <a id="jogo-link-1" href="https://nowgg.nl/play/uncube/7074/now" target="_blank" hidden></a>
-    <button onclick="abrirJogo(1)">Jogue</button>
-  </div>
-  <div class="jogo">
-    <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.miHoYo.GenshinImpact%2Ficon%2Fgenshin-impact.png&w=256&q=80" alt="Genshin Impact icon">
-    <h2>Genshin impact</h2>
-    <a id="jogo-link-2" href="https://nowgg.nl/apps/cognosphere-pte-ltd-/1773/genshin-impact.html" target="_blank" hidden></a>
-    <button onclick="abrirJogo(2)">Jogue</button>
-  </div>
-  <div class="jogo">
-    <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.netease.newspike%2Ficon%2Fblood-strike.png&w=256&q=80" alt="Blood Strike icon">
-    <h2>Blood Strike</h2>
-    <a id="jogo-link-3" href="https://nowgg.nl/apps/netease-games/7594/blood-strike.html" target="_blank" hidden></a>
-    <button onclick="abrirJogo(3)">Jogue</button>
-  </div>
-  <div class="jogo">
-    <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fjp.konami.pesam%2Ficon%2Fefootball-2024.png&w=256&q=80" alt="eFootball™ 2024 icon">
-    <h2>eFootball™ 2024</h2>
-    <a id="jogo-link-4" href="https://nowgg.nl/apps/konami/2641/efootball-2024.html" target="_blank" hidden></a>
-    <button onclick="abrirJogo(4)">Jogue</button>
-  </div>
-</body>
-</html>
+
+    <header>
+        <h1>Evo Games [beta]</h1>
+        <p>Para jogar, é obrigatório o uso de VPN.</p>
+    </header>
+
+    <div class="notification">
+        Precisa de VPN!
+        <button onclick="fecharAviso()">Fechar</button>
+    </div>
+
+    <section class="evogames">
+        <h2>Melhores jogos</h2>
+    </section>
+
+    <section class="jogo-container">
+        
+        <div class="jogo" onclick="abrirJogo(1)">
+            <img src="https://cdn.now.gg/apps-content/com.uncube.launcher3/icon/now.png" alt="nowgg icon">
+            <h2>App Launcher</h2>
+            <button>Jogue</button>
+            <a id="jogo-link-1" href="https://nowgg.nl/play/uncube/7074/now" target="_blank" hidden></a>
+        </div>
+      
+        <div class="jogo" onclick="abrirJogo(2)">
+            <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.miHoYo.GenshinImpact%2Ficon%2Fgenshin-impact.png&w=256&q=80" alt="Genshin Impact icon">
+            <h2>Genshin Impact</h2>
+            <button>Jogue</button>
+            <a id="jogo-link-2" href="https://nowgg.nl/play/cognosphere-pte-ltd-/1773/genshin-impact.html" target="_blank" hidden></a>
+        </div>
+      
+        <div class="jogo" onclick="abrirJogo(3)">
+            <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.netease.newspike%2Ficon%2Fblood-strike.png&w=256&q=80" alt="Blood Strike icon">
+            <h2>Blood Strike</h2>
+            <button>Jogue</button>
+            <a id="jogo-link-3" href="https://nowgg.nl/play/netease-games/7594/blood-strike.html" target="_blank" hidden></a>
+        </div>
+      
+        <div class="jogo" onclick="abrirJogo(4)">
+  <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fjp.konami.pesam%2Ficon%2Fefootball-2024.png&w=256&q=80" alt="eFootball™ 2024 icon">
+  <h2>eFootball™ 2024</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-4" href="https://nowgg.nl/play/konami/2641/efootball-2024.html" target="_blank" hidden></a>
+</div>
+        <div class="jogo" onclick="abrirJogo(5)">
+  <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.ea.gp.fifamobile%2Ficon%2Fea-sports-fc-mobile-24-soccer.png&w=256&q=80"EA FC MOBILE icon">
+  <h2>EA FC MOBILE</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-5" href="https://nowgg.nl/play/electronic-arts/1353/ea-sports-fc-mobile-24-soccer.html" target="_blank" hidden></a>
+</div>
+        <div class="jogo" onclick="abrirJogo(6)">
+  <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.kitkagames.fallbuddies%2Ficon%2Fstumble-guys.png&w=256&q=80"Stumble Guys icon">
+  <h2>Stumble Guys</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-6" href="https://nowgg.nl/play/electronic-arts/1353/ea-sports-fc-mobile-24-soccer.html" target="_blank" hidden></a>
+</div>
+        <div class="jogo" onclick="abrirJogo(7)">
+  <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.HoYoverse.hkrpgoversea%2Ficon%2Fhonkai-star-rail.png&w=256&q=80"Honkai Star icon">
+  <h2>Honkai Star</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-7" href="https://nowgg.nl/play/cognosphere-pte-ltd/1591/honkai-star-rail.html" target="_blank" hidden></a>
+</div>
+    
+        <div class="jogo" onclick="abrirJogo(8)">
+  <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.roblox.client%2Ficon%2Froblox.png&w=256&q=80"Roblox icon">
+  <h2>Roblox</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-8" href="https://nowgg.nl/play/roblox-corporation/5349/roblox.html" target="_blank" hidden></a>
+</div>
+      
+        <div class="jogo" onclick="abrirJogo(9)">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Aptoide_icon.png"Aptoide icon">
+  <h2>Aptoide</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-9" href="https://now.gg/play/aptoide/5874/aptoide.html" target="_blank" hidden></a>
+</div>
+        <div class="jogo" onclick="abrirJogo(10)">
+  <img src="https://cdn.now.gg/assets-opt/_next/image?url=https%3A%2F%2Fcdn.now.gg%2Fapps-content%2Fcom.dts.freefireth%2Ficon%2Ffree-fire.png&w=256&q=80"Free fire icon">
+  <h2>Free Fire</h2>
+  <button>Jogue</button>
+  <a id="jogo-link-10" href="https://nowgg.nl/play/garena-international-i/1398/free-fire.html target="_blank" hidden></a>
+</div>
+      
